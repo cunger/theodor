@@ -2,14 +2,15 @@ GEM
   remote: https://rubygems.org/
   specs:
     backports (3.8.0)
+    erubis (2.7.0)
     minitest (5.10.3)
     multi_json (1.12.1)
-    mustache (1.0.5)
     mustermann (1.0.0)
     puma (3.9.1)
     rack (2.0.3)
     rack-protection (2.0.0)
       rack
+    rake (12.0.0)
     sinatra (2.0.0)
       mustermann (~> 1.0)
       rack (~> 2.0)
@@ -28,9 +29,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  erubis
   minitest
-  mustache
   puma
+  rake
   sinatra
   sinatra-contrib
 
