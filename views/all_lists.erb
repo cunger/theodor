@@ -1,0 +1,9 @@
+<h1>All lists</h1>
+
+<p>
+  <ul>
+    <% @lists.each_with_index do |list, index| %>
+    <li>[<%= list.size %>] <a href="/lists/<%= index %>"><%= list.name %></a></li>
+    <% end %>
+  </ul>
+</p>

@@ -39,6 +39,22 @@ class ToDoListTest < Minitest::Test
     assert_equal 1, list.size
     assert_equal item, list[0]
   end
+
+  def test_done_if_all_items_done
+    list  = ToDo::List.new 'name'
+    item1 = ToDo::Item.new 'do something'
+    item2 = ToDo::Item.new 'do something else'
+    list << item1
+    list << item2
+
+    refute list.done?
+    item1.done!
+    refute list.done?
+    item2.done!
+    assert list.done?
+    item1.undone!
+    refute list.done?
+  end
 end
 
 class ToDoItemTest < Minitest::Test

@@ -29,6 +29,10 @@ class ToDo::List
     end
   end
 
+  def done?
+    @items.all? { |item| item.done? }
+  end
+
   def view
     # TODO
   end
