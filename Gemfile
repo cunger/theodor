@@ -10,3 +10,4 @@ gem 'sinatra-contrib'
 gem 'erubis'
 
 gem 'minitest'
+gem 'rack-test'
