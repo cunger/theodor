@@ -11,6 +11,7 @@ module ToDo
       list = ToDo::List.new 'Build a rocket'
 
       list << ToDo::Item.new('Download a blueprint from ESA')
+      list << ToDo::Item.new('Buy all necessary pieces')
       list << ToDo::Item.new('Assemble')
 
       list

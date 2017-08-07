@@ -1,0 +1,40 @@
+body {
+  font-family: 'PT Sans', sans-serif;
+  font-size: 16px;
+}
+
+.content {
+  width: 400px;
+  margin: auto;
+}
+
+h1, .major {
+  font-family: 'Amatic SC', cursive;
+}
+
+h1 {
+  text-align: center;
+  font-size: 52px;
+}
+
+.major {
+  font-size: 38px;
+}
+
+.right-align {
+  text-align: right;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: #000000;
+}
+
+a.box-link {
+  background: #eaeaed;
+  padding: 4px;
+}

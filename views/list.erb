@@ -1,9 +1,26 @@
 <h1><%= @list.name %></h1>
 
-<p>
-  <ul>
-    <% @list.items.each do |item| %>
-    <li><%= item.name %></li>
-    <% end %>
-  </ul>
+<hr>
+
+<p class="right-align">
+  <a href="?action=edit"><img src="/images/edit.png" width="60px"></a>
 </p>
+
+<% @list.items.each_with_index do |item, index| %>
+<p>
+<a href="?action=toggle&item=<%= index %>" class="box-link">
+  <img src="/images/<%= item.done? ? 'done.png' : 'not_done.png' %>" width="16px">
+  <%= item.name %>
+</a>
+</p>
+<% end %>
+
+<div class="major">
+  <p>+ NEW ITEM</p>
+</div>
+
+<hr>
+
+<div class="major">
+  <p><a href="/lists">< ALL LISTS</a></p>
+</div>

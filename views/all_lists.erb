@@ -1,9 +1,19 @@
-<h1>All lists</h1>
 
-<p>
-  <ul>
-    <% @lists.each_with_index do |list, index| %>
-    <li>[<%= list.size %>] <a href="/lists/<%= index %>"><%= list.name %></a></li>
-    <% end %>
-  </ul>
-</p>
+<h1>ALL LISTS</h1>
+
+<hr>
+
+<% @lists.each_with_index do |list, index| %>
+  <p class="<%= list.done? ? 'done' : 'undone' %>">
+    <a href="/lists/<%= index %>" class="box-link">
+      <%= list.name %>
+     [<%= list.size %>]
+    </a>
+  </p>
+<% end %>
+
+<div class="major">
+  <p>+ NEW LIST</p>
+</div>
+
+<hr>
