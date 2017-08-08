@@ -18,11 +18,16 @@ get '/' do
   redirect '/lists'
 end
 
-# GET  /lists           -> show all lists
-# GET  /list/name       -> show the list 'name'
-# GET  /list/name/items -> show all items in the list 'name'
-# GET  /lists/new       -> form for creating a new list
-# POST /lists           -> create a new list
+#### Routes
+
+# GET  /lists         -> show all lists
+# POST /lists         -> create a new list
+
+# GET  /list/name     -> show the list 'name' with its items
+# POST /list/name/new -> form for adding a new item to the list 'name'
+# GET  /lists/new     -> form for creating a new list
+
+####
 
 get '/lists/?' do
   @lists = session[:lists]
@@ -38,8 +43,22 @@ get '/lists/new' do
   erb :new_list
 end
 
-get '/lists/:id/?' do
+get '/lists/:id' do
   @list = session[:lists].select { |list| list.path == params['id'] }
                          .fetch(0) { halt 404 }
   erb :list
+end
+
+get '/lists/:id/new' do
+  @list = session[:lists].select { |list| list.path == params['id'] }
+                         .fetch(0) { halt 404 }
+  erb :new_item
+end
+
+post '/lists/:id' do
+  @list = session[:lists].select { |list| list.path == params['id'] }
+                         .fetch(0) { halt 404 }
+  @list << ToDo::Item.new(params['item_name'])
+
+  redirect '/lists/' + params['id']
 end

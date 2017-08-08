@@ -1,0 +1,26 @@
+<h1>Add new item</h1>
+
+<hr>
+
+<p>
+Alright! Just enter a brief description of your item.
+</p>
+
+<form action="/lists/<%= @list.path %>" method="post">
+  <dl>
+    <dd>
+      <input name="item_name" placeholder="Item description" type="text" value="">
+    </dd>
+  </dl>
+  <dl>
+    <fieldset class="actions">
+      <input type="submit" value="Create">
+    </fieldset>
+  </dl>
+</form>
+
+<hr>
+
+<div class="major">
+  <p><a href="/lists/<%= @list.path %>">< BACK TO LIST</a></p>
+</div>
