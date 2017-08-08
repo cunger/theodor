@@ -3,6 +3,12 @@
 
 <hr>
 
+<% if session[:success] %>
+  <div class="flash success">
+    <p><%= session.delete :success %></p>
+  </div>
+<% end %>
+
 <% @lists.each do |list| %>
   <p class="<%= list.done? ? 'done' : 'undone' %>">
     <a href="/lists/<%= list.path %>" class="box-link">

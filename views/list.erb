@@ -8,6 +8,12 @@
 </p>
 -->
 
+<% if session[:success] %>
+  <div class="flash success">
+    <p><%= session.delete :success %></p>
+  </div>
+<% end %>
+
 <% @list.items.each_with_index do |item, index| %>
 <p>
 <a href="?action=toggle&item=<%= index %>" class="box-link">

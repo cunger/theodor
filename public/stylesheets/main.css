@@ -88,3 +88,26 @@ form fieldset.actions a {
 form fieldset.actions a:hover {
   color: #000000;
 }
+
+.flash {
+  width: 100%;
+  padding: 2px 10px;
+  box-sizing: border-box;
+  color: #3399cc;
+  background: #cbe5f2;
+}
+
+.flash p {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.flash.error {
+  color: #ff6633;
+  background: #ffcfbf;
+}
+
+.flash.success {
+  color: #33cc99;
+  background: #cbe2e5;
+}

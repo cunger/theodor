@@ -36,6 +36,7 @@ end
 
 post '/lists' do
   session[:lists] << ToDo::List.new(params['list_name'])
+  session[:success] = "New list '#{params['list_name']}' was created."
   redirect '/lists'
 end
 
@@ -60,5 +61,6 @@ post '/lists/:id' do
                          .fetch(0) { halt 404 }
   @list << ToDo::Item.new(params['item_name'])
 
+  session[:success] = "New item '#{params['item_name']}' was added."
   redirect '/lists/' + params['id']
 end
