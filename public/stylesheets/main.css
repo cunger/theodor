@@ -38,3 +38,53 @@ a.box-link {
   background: #eaeaed;
   padding: 4px;
 }
+
+form dl {
+  width: 100%;
+  text-align: right;
+}
+
+form fieldset {
+  border: none;
+}
+
+form input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  font: normal 18px 'PT Sans', sans-serif;
+  border: 1px solid #a4a4a4;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+form input[type="submit"] {
+  padding: 6px 25px;
+  margin: 0 10px 0 0;
+  font: normal 32px 'Amatic SC', sans-serif;
+  color: #ffffff;
+  border: 1px solid #333333;
+  border-radius: 4px;
+  background: #333333;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -webkit-transition: background-color 200ms ease;
+  -moz-transition: background-color 200ms ease;
+  -o-transition: background-color 200ms ease;
+}
+
+form input[type="submit"]:hover {
+  color: #333333;
+  border: 1px solid #f1f1f1;
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+
+form fieldset.actions a {
+  text-align: center;
+  color: #666666;
+  border: none;
+}
+
+form fieldset.actions a:hover {
+  color: #000000;
+}

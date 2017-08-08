@@ -24,6 +24,6 @@ class ToDo::Item
   end
 
   def view
-    # TODO 
+    # TODO
   end
 end

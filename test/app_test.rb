@@ -17,6 +17,6 @@ class AppTest < Minitest::Test
 
   def test_all_lists
     get '/lists'
-    assert_equal 200, last_response.status
+    assert last_response.ok?
   end
 end

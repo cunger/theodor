@@ -16,5 +16,14 @@ module ToDo
 
       list
     end
+
+    def self.learn_web_dev
+      list = ToDo::List.new 'Learn web development'
+
+      list << ToDo::Item.new('Register at launchschool.com')
+      list << ToDo::Item.new('Show up every day')
+
+      list
+    end
   end
 end

@@ -1,13 +1,15 @@
+require_relative 'path'
 require_relative 'errors'
 
 class ToDo::List
-  attr_reader :items, :name
+  attr_reader :items, :name, :path
 
   def initialize(name)
     name = name.strip
     raise ToDo::EmptyNameError if name.empty?
 
     @name  = name
+    @path  = ToDo::Path.from name
     @items = []
   end
 
