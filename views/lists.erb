@@ -7,6 +7,14 @@
   <div class="flash success">
     <p><%= session.delete :success %></p>
   </div>
+<% else %>
+  <div class="flash">
+    <% if @lists.size.zero? %>
+      <p><span class="unbold">You don't have any lists yet. Start by creating one.</span></p>
+    <% else %>
+      <p><span class="unbold">Nice collection of lists, hero!</span></p>
+      <% end %>
+  </div>
 <% end %>
 
 <% @lists.each do |list| %>

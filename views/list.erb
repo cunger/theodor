@@ -12,6 +12,21 @@
   <div class="flash success">
     <p><%= session.delete :success %></p>
   </div>
+<% else %>
+  <div class="flash">
+    <% if @list.size.zero? %>
+      <p><span class="unbold">This list is still empty. Start by adding items.</span></p> 
+    <% else %>
+      <p><span class="unbold"><%= @list.number_of_done_items %> items done,
+      </span> <%= @list.number_of_remaining_items %>
+      <span class="unbold">still to do.
+        <% if @list.done? %> Well done, hero!
+        <% elsif @list.number_of_done_items.zero? %> Get started, hero!
+        <% else %> Keep going, hero!
+        <% end %>
+      </span></p>
+      <% end %>
+  </div>
 <% end %>
 
 <% @list.items.each_with_index do |item, index| %>

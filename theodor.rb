@@ -6,8 +6,7 @@ require_relative 'src/item'
 
 configure do
   enable :sessions
-  set :session_secret, 'fnord' # remove if you want to start new session
-                               # every time the web service is re-started
+  set :session_secret, 'fnord' 
 end
 
 before do
@@ -45,22 +44,24 @@ get '/lists/new' do
 end
 
 get '/lists/:id' do
-  @list = session[:lists].select { |list| list.path == params['id'] }
-                         .fetch(0) { halt 404 }
+  @list = find_list params['id']
   erb :list
 end
 
 get '/lists/:id/new' do
-  @list = session[:lists].select { |list| list.path == params['id'] }
-                         .fetch(0) { halt 404 }
+  @list = find_list params['id']
   erb :new_item
 end
 
 post '/lists/:id' do
-  @list = session[:lists].select { |list| list.path == params['id'] }
-                         .fetch(0) { halt 404 }
+  @list = find_list params['id']
   @list << ToDo::Item.new(params['item_name'])
 
   session[:success] = "New item '#{params['item_name']}' was added."
   redirect '/lists/' + params['id']
+end
+
+def find_list(id)
+  session[:lists].select { |list| list.path == id }
+                 .fetch(0) { halt 404 }
 end

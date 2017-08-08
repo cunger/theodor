@@ -25,6 +25,14 @@ class ToDo::List
     @items.size
   end
 
+  def number_of_done_items
+    @items.select { |item| item.done? }.size
+  end
+
+  def number_of_remaining_items
+    @items.reject { |item| item.done? }.size
+  end
+
   def each(&block)
     @items.each do |item|
       block.call item
