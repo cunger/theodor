@@ -2,9 +2,17 @@
 
 <hr>
 
-<p>
-Alright! Just enter a brief description of your item.
-</p>
+<% if session[:error] %>
+  <div class="flash error">
+    <p><%= session.delete :error %></p>
+  </div>
+<% else %>
+  <div class="flash">
+    <p>
+      <span class="unbold">Alright! Just enter a brief description of your item.</span>
+    </p>
+  </div>
+<% end %>
 
 <form action="/lists/<%= @list.path %>" method="post">
   <dl>

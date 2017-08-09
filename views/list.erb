@@ -12,10 +12,14 @@
   <div class="flash success">
     <p><%= session.delete :success %></p>
   </div>
+<% elsif session[:error] %>
+  <div class="flash error">
+    <p><%= session.delete :error %></p>
+  </div>
 <% else %>
   <div class="flash">
     <% if @list.size.zero? %>
-      <p><span class="unbold">This list is still empty. Start by adding items.</span></p> 
+      <p><span class="unbold">This list is still empty. Start by adding items.</span></p>
     <% else %>
       <p><span class="unbold"><%= @list.number_of_done_items %> items done,
       </span> <%= @list.number_of_remaining_items %>

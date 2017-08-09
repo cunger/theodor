@@ -2,9 +2,17 @@
 
 <hr>
 
-<p>
-Great! Just give your list a name and you'll be ready to go.
-</p>
+<% if session[:error] %>
+  <div class="flash error">
+    <p><%= session.delete :error %></p>
+  </div>
+<% else %>
+  <div class="flash">
+    <p>
+      <span class="unbold">Great! Just give your list a name and you'll be ready to go.</span>
+    </p>
+  </div>
+<% end %>
 
 <form action="/lists" method="post">
   <dl>

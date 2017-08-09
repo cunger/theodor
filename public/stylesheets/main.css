@@ -101,8 +101,7 @@ form fieldset.actions a:hover {
 }
 
 .flash.error {
-  color: #ff6633;
-  background: #ffcfbf;
+  color: #963131;
 }
 
 .flash.success {

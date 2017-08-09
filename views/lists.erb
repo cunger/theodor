@@ -7,6 +7,10 @@
   <div class="flash success">
     <p><%= session.delete :success %></p>
   </div>
+<% elsif session[:error] %>
+  <div class="flash error">
+    <p><%= session.delete :error %></p>
+  </div>
 <% else %>
   <div class="flash">
     <% if @lists.size.zero? %>

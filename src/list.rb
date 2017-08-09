@@ -26,11 +26,11 @@ class ToDo::List
   end
 
   def number_of_done_items
-    @items.select { |item| item.done? }.size
+    @items.select(&:done?).size
   end
 
   def number_of_remaining_items
-    @items.reject { |item| item.done? }.size
+    @items.reject(&:done?).size
   end
 
   def each(&block)
@@ -40,7 +40,7 @@ class ToDo::List
   end
 
   def done?
-    @items.all? { |item| item.done? }
+    @items.all?(&:done?)
   end
 
   def view

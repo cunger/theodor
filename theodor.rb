@@ -6,7 +6,7 @@ require_relative 'src/item'
 
 configure do
   enable :sessions
-  set :session_secret, 'fnord' 
+  set :session_secret, 'fnord'
 end
 
 before do
@@ -34,9 +34,16 @@ get '/lists/?' do
 end
 
 post '/lists' do
-  session[:lists] << ToDo::List.new(params['list_name'])
-  session[:success] = "New list '#{params['list_name']}' was created."
-  redirect '/lists'
+  list_name = truncate params['list_name'].strip
+  error_message = error_for(list_name, session[:lists], 'list', 'name')
+  if error_message
+    session[:error] = error_message
+    erb :new_list
+  else
+    session[:lists] << ToDo::List.new(list_name)
+    session[:success] = "New list '#{list_name}' was created."
+    redirect '/lists'
+  end
 end
 
 get '/lists/new' do
@@ -55,13 +62,37 @@ end
 
 post '/lists/:id' do
   @list = find_list params['id']
-  @list << ToDo::Item.new(params['item_name'])
-
-  session[:success] = "New item '#{params['item_name']}' was added."
-  redirect '/lists/' + params['id']
+  item_name = truncate params['item_name'].strip
+  error_message = error_for(item_name, @list.items, 'item', 'description')
+  if error_message
+    session[:error] = error_message
+    erb :new_item
+  else
+    @list << ToDo::Item.new(item_name)
+    session[:success] = "New item '#{item_name}' was added."
+    redirect '/lists/' + params['id']
+  end
 end
+
+private
 
 def find_list(id)
   session[:lists].select { |list| list.path == id }
                  .fetch(0) { halt 404 }
+end
+
+def truncate(string, length=100)
+  string.size > length ? string.slice(0, length - 3) + '...' : string
+end
+
+def error_for(name, collection, thing, attribute)
+  if name.empty?
+    "#{thing.capitalize} #{attribute} cannot be empty."
+  elsif !unique?(name, collection)
+    "You already have some #{thing} with this #{attribute}."
+  end
+end
+
+def unique?(name, collection)
+  collection.none? { |element| element.name == name }
 end
