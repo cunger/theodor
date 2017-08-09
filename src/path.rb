@@ -8,8 +8,8 @@ class ToDo::Path
   end
 
   def self.from(name)
-    path = name.downcase.gsub(/[^\p{Alnum}\s]/, '').gsub(/\s+/, '-')
-    path += '-x' while @@paths.include? path
+    path = name.gsub(/\s+|_/, '-').gsub(/[^\w\d\-]/, '_')
+    path += 'x' while @@paths.include? path
     @@paths << path
     path
   end

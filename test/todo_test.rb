@@ -31,6 +31,18 @@ class ToDoListTest < Minitest::Test
     end
   end
 
+  def test_path_from_name
+    list = ToDo::List.new '  name  '
+
+    assert_equal 'name', list.path.gsub(/x*$/, '')
+  end
+
+  def test_path_from_name_with_non_ascii_characters
+    list = ToDo::List.new 'Fußbälle kaufen'
+
+    assert_equal 'Fu_b_lle-kaufen', list.path.gsub(/x*$/, '')
+  end
+
   def test_adding_an_item
     list = ToDo::List.new 'name'
     item = ToDo::Item.new 'do something'
