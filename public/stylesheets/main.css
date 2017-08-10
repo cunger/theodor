@@ -38,7 +38,7 @@ a {
   color: #000000;
 }
 
-a.box-link {
+.box-link {
   background: #eaeaed;
   padding: 4px;
 }
@@ -94,25 +94,10 @@ form fieldset.actions a:hover {
 }
 
 button {
-  display: inline-block;
+  display: inline;
   padding: 0;
   border: none;
   background-color: transparent;
-}
-
-a.button-like {
-  padding: 6px 25px;
-  margin: 0 10px 0 0;
-  font: normal 32px 'Amatic SC', sans-serif;
-  color: #333333;
-  border: 1px solid #f9f9f9;
-  border-radius: 4px;
-  background: #f5f5f5;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  -webkit-transition: background-color 200ms ease;
-  -moz-transition: background-color 200ms ease;
-  -o-transition: background-color 200ms ease;
 }
 
 .flash {
@@ -137,4 +122,30 @@ a.button-like {
 
 .unbold {
   font-weight: normal;
+}
+
+.delete, .toggle {
+  display: inline;
+  right: 20px;
+  width: 24px;
+  height: 27px;
+  margin: -12px 0 0 0;
+  background: transparent;
+}
+
+.delete {
+  opacity: 0.4;
+}
+
+.delete [type="submit"] {
+  width: 24px;
+  height: 24px;
+  color: transparent;
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+}
+
+.delete:hover {
+  opacity: 1;
 }

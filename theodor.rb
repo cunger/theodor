@@ -23,12 +23,16 @@ end
 # GET  /lists/new        -> form for creating a new list
 # POST /lists            -> create a new list
 
-# GET  /list/name        -> show the list 'name' with its items
-# POST /list/name/new    -> form for adding a new item to the list 'name'
-# GET  /list/name/rename -> form for renaming the list 'name'
-# POST /list/name/rename -> rename the list 'name'
-# GET  /list/name/delete -> ask to delete the list 'name'
-# POST /list/name/delete -> delete the list 'name'
+# GET  /lists/name        -> show the list 'name' with its items
+# POST /lists/name/new    -> form for adding a new item to the list 'name'
+# GET  /lists/name/rename -> form for renaming the list 'name'
+# POST /lists/name/rename -> rename the list 'name'
+# GET  /lists/name/delete -> ask to delete the list 'name'
+# POST /lists/name/delete -> delete the list 'name'
+
+# POST /lists/name/item/delete     -> delete item from list 'name'
+# POST /lists/name/item?done=true  -> set item on list 'name' to done
+# POST /lists/name/item?done=false -> set item on list 'name' to not done
 
 ####
 
@@ -109,6 +113,22 @@ post '/lists/:id/delete' do
   @lists.delete @list
   session[:success] = "List '#{@list.name}' was deleted."
   redirect '/lists'
+end
+
+post '/lists/:list_id/:item_id/delete' do
+  @list = find_list params['list_id']
+  @list.items.delete_at Integer(params['item_id'])
+  session[:success] = "Item was deleted."
+  redirect '/lists/' + params['list_id']
+end
+
+post '/lists/:list_id/:item_id' do
+  @list = find_list params['list_id']
+  item = Integer(params['item_id'])
+  if params['done']
+    params['done'] == 'true' ? @list[item].done! : @list[item].undone!
+  end
+  redirect '/lists/' + params['list_id']
 end
 
 private

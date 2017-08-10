@@ -24,11 +24,8 @@
 <% @lists.each do |list| %>
   <p class="<%= list.done? ? 'done' : 'undone' %>">
     <a href="/lists/<%= list.path %>" class="box-link">
-      <%= list.name %> (<%= list.size %>)
+      <%= list.name %> (<%= list.number_of_remaining_items %>/<%= list.size %>)
     </a>
-    &nbsp;&nbsp;
-    <a href="/lists/<%= list.path %>/rename"><img src="/images/edit.png" height="30px"></a>
-    <a href="/lists/<%= list.path %>/delete"><img src="/images/delete.png" height="26px"></a>
   </p>
 <% end %>
 

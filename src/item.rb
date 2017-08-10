@@ -22,7 +22,7 @@ class ToDo::Item
   def done?
     @done
   end
-
+  
   def view
     # TODO
   end
