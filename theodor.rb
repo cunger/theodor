@@ -19,12 +19,14 @@ end
 
 #### Routes
 
-# GET  /lists         -> show all lists
-# POST /lists         -> create a new list
+# GET  /lists            -> show all lists
+# GET  /lists/new        -> form for creating a new list
+# POST /lists            -> create a new list
 
-# GET  /list/name     -> show the list 'name' with its items
-# POST /list/name/new -> form for adding a new item to the list 'name'
-# GET  /lists/new     -> form for creating a new list
+# GET  /list/name        -> show the list 'name' with its items
+# POST /list/name/new    -> form for adding a new item to the list 'name'
+# GET  /list/name/rename -> form for renaming the list 'name'
+# POST /list/name/rename -> rename the list 'name'
 
 ####
 
@@ -58,6 +60,25 @@ end
 get '/lists/:id/new' do
   @list = find_list params['id']
   erb :new_item
+end
+
+get '/lists/:id/rename' do
+  @list = find_list params['id']
+  erb :rename_list
+end
+
+post '/lists/:id/rename' do
+  @list = find_list params['id']
+  list_name = truncate params['list_name'].strip
+  error_message = error_for(list_name, session[:lists], 'list', 'name')
+  if error_message
+    session[:error] = error_message
+    erb :rename_list
+  else
+    @list.name = list_name
+    @lists = session[:lists]
+    erb :lists
+  end
 end
 
 post '/lists/:id' do

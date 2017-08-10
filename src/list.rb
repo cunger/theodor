@@ -3,6 +3,7 @@ require_relative 'errors'
 
 class ToDo::List
   attr_reader :items, :name, :path
+  attr_writer :name
 
   def initialize(name)
     name = name.strip

@@ -1,0 +1,34 @@
+<h1>Rename '<%= @list.name %>'</h1>
+
+<hr>
+
+<% if session[:error] %>
+  <div class="flash error">
+    <p><%= session.delete :error %></p>
+  </div>
+<% else %>
+  <div class="flash">
+    <p>
+      <span class="unbold">Sure thing. Just give your list a new name.</span>
+    </p>
+  </div>
+<% end %>
+
+<form action="/lists/<%= @list.path %>/rename" method="post">
+  <dl>
+    <dd>
+      <input name="list_name" placeholder="<%= @list.name %>" type="text" value="">
+    </dd>
+  </dl>
+  <dl>
+    <fieldset class="actions">
+      <input type="submit" value="Rename">
+    </fieldset>
+  </dl>
+</form>
+
+<hr>
+
+<div class="major">
+  <p><a href="/lists">< ALL LISTS</a></p>
+</div>
