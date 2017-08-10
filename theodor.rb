@@ -27,6 +27,8 @@ end
 # POST /list/name/new    -> form for adding a new item to the list 'name'
 # GET  /list/name/rename -> form for renaming the list 'name'
 # POST /list/name/rename -> rename the list 'name'
+# GET  /list/name/delete -> ask to delete the list 'name'
+# POST /list/name/delete -> delete the list 'name'
 
 ####
 
@@ -75,9 +77,10 @@ post '/lists/:id/rename' do
     session[:error] = error_message
     erb :rename_list
   else
+    session[:success] = "List was renamed."
     @list.name = list_name
     @lists = session[:lists]
-    erb :lists
+    redirect '/lists'
   end
 end
 
@@ -93,6 +96,19 @@ post '/lists/:id' do
     session[:success] = "New item '#{item_name}' was added."
     redirect '/lists/' + params['id']
   end
+end
+
+get '/lists/:id/delete' do
+  @list = find_list params['id']
+  erb :delete_list
+end
+
+post '/lists/:id/delete' do
+  @list = find_list params['id']
+  @lists = session[:lists]
+  @lists.delete @list
+  session[:success] = "List '#{@list.name}' was deleted."
+  redirect '/lists'
 end
 
 private

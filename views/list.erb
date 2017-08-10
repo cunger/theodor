@@ -1,5 +1,14 @@
 <h1><%= @list.name %></h1>
 
+<p class="centered">
+<a href="/lists/<%= @list.path %>/rename"><img src="/images/edit.png" height="42px"></a>
+&nbsp;&nbsp;
+<a href="/lists/<%= @list.path %>/delete"><img src="/images/delete.png" height="42px"></a>
+    <!-- <form action="/lists/<%= @list.path %>/delete" method="post" style="display: inline-block;">
+      <button type="submit"><img src="/images/delete.png" height="34px"></button>
+    </form> -->
+</p>
+
 <hr>
 
 <!--
@@ -43,7 +52,9 @@
 <% end %>
 
 <div class="major">
-  <p><a href="/lists/<%= @list.path %>/new">+ NEW ITEM</a></p>
+  <p>
+    <a href="/lists/<%= @list.path %>/new">+ NEW ITEM</a>
+  </p>
 </div>
 
 <hr>

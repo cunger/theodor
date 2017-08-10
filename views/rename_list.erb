@@ -1,4 +1,4 @@
-<h1>Rename '<%= @list.name %>'</h1>
+<h1>Rename list</h1>
 
 <hr>
 
@@ -9,7 +9,8 @@
 <% else %>
   <div class="flash">
     <p>
-      <span class="unbold">Sure thing. Just give your list a new name.</span>
+      <span class="unbold">Sure thing. Just give your list
+     '</span><%= @list.name %><span class="unbold">' a new name.</span>
     </p>
   </div>
 <% end %>
@@ -17,12 +18,13 @@
 <form action="/lists/<%= @list.path %>/rename" method="post">
   <dl>
     <dd>
-      <input name="list_name" placeholder="<%= @list.name %>" type="text" value="">
+      <input name="list_name" placeholder="List name" type="text" value="<%= params['list_name'] || @list.name %>">
     </dd>
   </dl>
   <dl>
     <fieldset class="actions">
       <input type="submit" value="Rename">
+      <a href="/lists/<%= @list.path %>" class="button-like">Cancel</a>
     </fieldset>
   </dl>
 </form>

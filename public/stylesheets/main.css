@@ -25,6 +25,10 @@ h1 {
   text-align: right;
 }
 
+.centered {
+  text-align: center;
+}
+
 ul {
   list-style: none;
 }
@@ -87,6 +91,28 @@ form fieldset.actions a {
 
 form fieldset.actions a:hover {
   color: #000000;
+}
+
+button {
+  display: inline-block;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+}
+
+a.button-like {
+  padding: 6px 25px;
+  margin: 0 10px 0 0;
+  font: normal 32px 'Amatic SC', sans-serif;
+  color: #333333;
+  border: 1px solid #f9f9f9;
+  border-radius: 4px;
+  background: #f5f5f5;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -webkit-transition: background-color 200ms ease;
+  -moz-transition: background-color 200ms ease;
+  -o-transition: background-color 200ms ease;
 }
 
 .flash {

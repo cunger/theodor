@@ -1,0 +1,31 @@
+<h1>Delete list</h1>
+
+<hr>
+
+<% if session[:error] %>
+  <div class="flash error">
+    <p><%= session.delete :error %></p>
+  </div>
+<% else %>
+  <div class="flash">
+    <p>
+      <span class="unbold">Do you really want to delete the list
+     '</span><%= @list.name %>'<span class="unbold">?
+       You'll irreversibly lose all data associated with it.</span>
+    </p>
+  </div>
+<% end %>
+
+<form action="/lists/<%= @list.path %>/delete" method="post">
+  <fieldset class="actions">
+    <input type="submit" value="Delete">
+    <a href="/lists/<%= @list.path %>" class="button-like">Cancel</a>
+  </fieldset>
+  </dl>
+</form>
+
+<hr>
+
+<div class="major">
+  <p><a href="/lists">< ALL LISTS</a></p>
+</div>
