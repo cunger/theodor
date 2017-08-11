@@ -43,6 +43,25 @@ a {
   padding: 4px;
 }
 
+a.button-like {
+  padding: 6px 25px;
+  margin: 0 10px 0 0;
+  font: normal 32px 'Amatic SC', sans-serif;
+  color: #333333;
+  border: 1px solid #f9f9f9;
+  border-radius: 4px;
+  background: #f5f5f5;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -webkit-transition: background-color 200ms ease;
+  -moz-transition: background-color 200ms ease;
+  -o-transition: background-color 200ms ease;
+}
+
+a.done {
+  text-decoration: line-through;
+}
+
 form dl {
   width: 100%;
   text-align: right;
@@ -142,10 +161,14 @@ button {
   height: 24px;
   color: transparent;
   background-color: transparent;
-  cursor: pointer;
   border: none;
 }
 
 .delete:hover {
+  cursor: pointer;
   opacity: 1;
+}
+
+.toggle:hover {
+  cursor: pointer;
 }

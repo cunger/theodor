@@ -22,9 +22,9 @@
 <% end %>
 
 <% @lists.each do |list| %>
-  <p class="<%= list.done? ? 'done' : 'undone' %>">
-    <a href="/lists/<%= list.path %>" class="box-link">
-      <%= list.name %> (<%= list.number_of_remaining_items %>/<%= list.size %>)
+  <p>
+    <a href="/lists/<%= list.path %>" class="box-link<%= if list.done? then ' done' end %>">
+      <%= list.name %> (<%= list.number_of_done_items %>/<%= list.size %>)
     </a>
   </p>
 <% end %>

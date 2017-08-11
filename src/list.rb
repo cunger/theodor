@@ -41,7 +41,13 @@ class ToDo::List
   end
 
   def done?
-    @items.all?(&:done?)
+    !@items.empty? && @items.all?(&:done?)
+  end
+
+  def done!
+    @items.each do |item|
+      item.done!
+    end
   end
 
   def view
