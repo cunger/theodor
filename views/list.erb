@@ -5,12 +5,13 @@
   <button type="submit"><img src="/images/check_all.png" height="46px" alt="Check all"></button>
 </form>
 &nbsp;
-<a href="/lists/<%= @list.path %>/rename"><img src="/images/edit.png" height="42px" alt="Edit"></a>
-&nbsp;&nbsp;
-<a href="/lists/<%= @list.path %>/delete"><img src="/images/delete.png" height="42px" alt="Delete"></a>
-    <!-- <form action="/lists/<%= @list.path %>/delete" method="post" style="display: inline-block;">
-      <button type="submit"><img src="/images/delete.png" height="34px"></button>
-    </form> -->
+<form action="/lists/<%= @list.path %>/rename" method="get" class="toggle">
+  <button type="submit"><img src="/images/edit.png" height="42px" alt="Edit"></button>
+</form>
+&nbsp;&nbsp;&nbsp;
+<form action="/lists/<%= @list.path %>/delete" method="post" class="delete">
+  <button type="submit"><img src="/images/delete.png" height="42px" alt="Delete"></button>
+</form>
 </div>
 
 <hr>
