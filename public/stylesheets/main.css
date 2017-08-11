@@ -58,7 +58,7 @@ a.button-like {
   -o-transition: background-color 200ms ease;
 }
 
-a.done {
+.done {
   text-decoration: line-through;
 }
 

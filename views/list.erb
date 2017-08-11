@@ -54,7 +54,7 @@
 <form action="/lists/<%= @list.path %>/<%= index %>?done=<%= !item.done? %>" method="post" class="toggle">
   <button type="submit"><img src="/images/<%= item.done? ? 'done.png' : 'not_done.png' %>" height="20px"></button>
 </form>
-<span class="box-link">
+<span class="box-link<%= if item.done? then ' done' end %>">
 <%= item.name %>
 </span>
 </p>

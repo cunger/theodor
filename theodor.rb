@@ -140,6 +140,12 @@ post '/lists/:list_id/:item_id' do |list_id, item_id|
   redirect "/lists/#{list_id}"
 end
 
+helpers do
+  def re_order(collection)
+    collection.partition { |element| !element.done? }.flatten
+  end
+end
+
 private
 
 def find_list(id)

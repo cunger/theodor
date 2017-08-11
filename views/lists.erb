@@ -21,7 +21,7 @@
   </div>
 <% end %>
 
-<% @lists.each do |list| %>
+<% re_order(@lists).each do |list| %>
   <p>
     <a href="/lists/<%= list.path %>" class="box-link<%= if list.done? then ' done' end %>">
       <%= list.name %> (<%= list.number_of_done_items %>/<%= list.size %>)
