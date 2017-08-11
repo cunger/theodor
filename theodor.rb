@@ -8,6 +8,7 @@ configure do
   enable :sessions
   set :session_secret, 'fnord' # fine for now only because the session cookie
                                # doesn't store any sensitive information
+  set :erb, :escape_html => true
 end
 
 before do
@@ -141,6 +142,10 @@ post '/lists/:list_id/:item_id' do |list_id, item_id|
 end
 
 helpers do
+  def html(content)
+    Rack::Utils.escape_html(content)
+  end
+
   def re_order(collection)
     collection.partition { |element| !element.done? }.flatten
   end
@@ -149,8 +154,10 @@ end
 private
 
 def find_list(id)
-  session[:lists].select { |list| list.path == id }
-                 .fetch(0) { halt 404 }
+  session[:lists].select { |list| list.path == id }.fetch(0) do
+    session[:error] = 'List was not found.'
+    redirect '/lists'
+  end
 end
 
 def truncate(string, length=100)
