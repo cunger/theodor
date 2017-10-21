@@ -3,16 +3,15 @@ require 'sinatra/reloader' if development?
 
 require_relative 'src/list'
 require_relative 'src/item'
+require_relative 'src/session_persistence'
 
 configure do
   enable :sessions
-  set :session_secret, 'fnord' # fine for now only because the session cookie
-                               # doesn't store any sensitive information
   set :erb, :escape_html => true
 end
 
 before do
-  session[:lists] ||= []
+  @storage = SessionPersistence.new(session)
 end
 
 get '/' do
@@ -40,21 +39,14 @@ end
 ####
 
 get '/lists/?' do
-  @lists = session[:lists]
+  @lists = @storage.lists
   erb :lists
 end
 
 post '/lists' do
-  list_name = truncate params['list_name'].strip
-  error_message = error_for(list_name, session[:lists], 'list', 'name')
-  if error_message
-    session[:error] = error_message
-    erb :new_list
-  else
-    session[:lists] << ToDo::List.new(list_name)
-    session[:success] = "New list '#{list_name}' was created."
-    redirect '/lists'
-  end
+  @storage.add_list(params['list_name']) { or_invalid_list_name(:new_list) }
+  session[:success] = "New list '#{list_name}' was created."
+  redirect '/lists'
 end
 
 get '/lists/new' do
@@ -62,82 +54,61 @@ get '/lists/new' do
 end
 
 get '/lists/:id' do |id|
-  @list = find_list id
+  @list = @storage.find_list(id) { or_list_not_found }
   erb :list
 end
 
 get '/lists/:id/new' do |id|
-  @list = find_list id
+  @list = @storage.find_list(id) { or_list_not_found }
   erb :new_item
 end
 
 post '/lists/:id/done' do |id|
-  @list = find_list id
+  @list = @storage.find_list(id) { or_list_not_found }
   @list.done!
   session[:success] = 'All items were marked done.'
   redirect "/lists/#{id}"
 end
 
 get '/lists/:id/rename' do |id|
-  @list = find_list id
+  @list = @storage.find_list(id) { or_list_not_found }
   erb :rename_list
 end
 
 post '/lists/:id/rename' do |id|
-  @list = find_list id
-  list_name = truncate params['list_name'].strip
-  error_message = error_for(list_name, session[:lists], 'list', 'name')
-  if error_message
-    session[:error] = error_message
-    erb :rename_list
-  else
-    session[:success] = "List was renamed."
-    @list.name = list_name
-    @lists = session[:lists]
-    redirect '/lists'
-  end
+  @list = @storage.find_list(id) { or_list_not_found }
+  @storage.rename_list(@list, params['list_name']) { or_invalid_list_name(:rename_list) }
+  session[:success] = 'List was renamed.'
+  @lists = @storage.lists
+  redirect '/lists'
 end
 
 post '/lists/:id' do |id|
-  @list = find_list id
-  item_name = truncate params['item_name'].strip
-  error_message = error_for(item_name, @list.items, 'item', 'description')
-  if error_message
-    session[:error] = error_message
-    erb :new_item
-  else
-    @list << ToDo::Item.new(item_name)
-    session[:success] = "New item '#{item_name}' was added."
-    redirect "/lists/#{id}"
-  end
+  @list = @storage.find_list(id) { or_list_not_found }
+  @storage.add_item(@list, params['item_name']) { or_invalid_item_name(:new_item) }
+  session[:success] = "New item '#{item_name}' was added."
+  redirect "/lists/#{id}"
 end
 
 get '/lists/:id/delete' do |id|
-  @list = find_list id
+  @list = @storage.find_list(id) { or_list_not_found }
   erb :delete_list
 end
 
 post '/lists/:id/delete' do |id|
-  @list = find_list id
-  @lists = session[:lists]
-  @lists.delete @list
+  @storage.delete_list(id) { or_list_not_found }
   session[:success] = "List '#{@list.name}' was deleted."
   redirect '/lists'
 end
 
 post '/lists/:list_id/:item_id/delete' do |list_id, item_id|
-  @list = find_list list_id
-  @list.items.delete_at Integer(item_id)
-  session[:success] = "Item was deleted."
+  @storage.delete_item(list_id, item_id) { or_list_not_found }
+  session[:success] = 'Item was deleted.'
   redirect "/lists/#{list_id}"
 end
 
 post '/lists/:list_id/:item_id' do |list_id, item_id|
-  @list = find_list list_id
-  item = Integer(item_id)
-  if params['done']
-    params['done'] == 'true' ? @list[item].done! : @list[item].undone!
-  end
+  @storage.toggle_item(list_id, item_id, params['done']) { or_list_not_found }
   redirect "/lists/#{list_id}"
 end
 
@@ -153,25 +124,19 @@ end
 
 private
 
-def find_list(id)
-  session[:lists].select { |list| list.path == id }.fetch(0) do
-    session[:error] = 'List was not found.'
-    redirect '/lists'
-  end
+def or_list_not_found
+  session[:error] = 'List was not found.'
+  redirect '/lists'
 end
 
-def truncate(string, length=100)
-  string.size > length ? string.slice(0, length - 3) + '...' : string
+def or_invalid_list_name(template)
+  or_invalid_name('list', template)
 end
 
-def error_for(name, collection, thing, attribute)
-  if name.empty?
-    "#{thing.capitalize} #{attribute} cannot be empty."
-  elsif !unique?(name, collection)
-    "You already have some #{thing} with this #{attribute}."
-  end
-end
+def or_invalid_item_name(template)
+  or_invalid_name('item', template)
 
-def unique?(name, collection)
-  collection.none? { |element| element.name == name }
+def or_invalid_name(thing, template)
+  session[:error] = "Invalid #{thing} name."
+  halt erb(template)
 end

@@ -49,7 +49,12 @@ class ToDo::List
     end
   end
 
-  def view
-    # TODO
+  def toggle(item_id, done?)
+    return unless done?
+    done? == 'true' ? @items[item_id].done! : @items[item_id].undone!
+  end
+
+  def delete_item(item_id)
+    @items.delete_at(item_id)
   end
 end
