@@ -20,6 +20,10 @@ before do
   @data ||= ToDo::DatabaseConnection.new('todos', logger)
 end
 
+after do
+  @data.disconnect
+end
+
 #### Routes ####
 
 ## Show all lists

@@ -6,8 +6,16 @@ require_relative 'todo_item'
 module ToDo
   class DatabaseConnection
     def initialize(dbname, logger)
-      @db = PG.connect(dbname: dbname)
+      @db = if Sinatra::Base.production?
+              PG.connect(ENV['DATABASE_URL'])
+            else
+              PG.connect(dbname: dbname)
+            end
       @logger = logger
+    end
+
+    def disconnect
+      @db.close
     end
 
     def exec_sql(statement, *params)
