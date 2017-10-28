@@ -28,13 +28,10 @@ module ToDo
               SELECT todo_lists.id,
                      todo_lists.name,
                      count(todo_items.id) AS all,
-                    (SELECT count(id)
-                       FROM todo_items
-                      WHERE todo_list_id = todo_lists.id
-                        AND done = true) AS completed
+                     count(NULLIF(todo_items.done, false)) AS completed
                  FROM todo_lists
-                      JOIN todo_items
-                        ON todo_items.todo_list_id = todo_lists.id
+                      LEFT JOIN todo_items
+                             ON todo_items.todo_list_id = todo_lists.id
                 GROUP BY todo_lists.id;
                SQL
       results = exec_sql(query)
