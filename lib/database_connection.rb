@@ -32,7 +32,8 @@ module ToDo
                  FROM todo_lists
                       LEFT JOIN todo_items
                              ON todo_items.todo_list_id = todo_lists.id
-                GROUP BY todo_lists.id;
+                GROUP BY todo_lists.id
+                ORDER BY todo_lists.name ASC;
                SQL
       results = exec_sql(query)
       results.map do |result|
