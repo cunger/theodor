@@ -1,3 +1,3 @@
-require './theodor'
+require './main'
 
 run Sinatra::Application

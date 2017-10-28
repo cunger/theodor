@@ -1,0 +1,21 @@
+%h1
+  Add new item
+
+%hr
+
+- haml :flash_new_item, :layout => :flash_layout
+
+%form(action="/lists/#{@list_id}/new" method="post")
+  %dl
+    %dd
+      %input(name="item_name" placeholder="Item description" type="text" value="")
+  %dl
+    %fieldset(class="actions")
+      %input(type="submit" value="Create")
+
+%hr
+
+.major
+  %p
+    %a(href="/lists/#{@list_id}")
+      < BACK TO LIST

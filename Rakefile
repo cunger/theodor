@@ -1,12 +1,8 @@
-require 'rake/testtask'
+require 'dotenv/tasks'
 
-Rake::TestTask.new do |t|
-  t.libs << '.'
-  t.libs << 'src'
-  t.warning = true
-  t.verbose = true
-  t.test_files = FileList['test/*_test.rb']
+desc 'Start application'
+task rackup: :dotenv do
+  system('rackup')
 end
-desc 'Run tests'
 
-task default: [:test]
+task default: ['rackup']

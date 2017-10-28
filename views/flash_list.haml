@@ -1,0 +1,7 @@
+- if @list.empty?
+  This list is still empty. Start by adding items.
+- elsif @list.done?
+  This list has been completed.
+- else
+  #{@list.number_of_done_items} items done,
+  #{@list.number_of_remaining_items} still to do.

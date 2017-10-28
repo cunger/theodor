@@ -1,0 +1,19 @@
+
+%h1
+  ALL LISTS
+
+%hr
+
+- haml :flash_lists, :layout => :flash_layout
+
+- re_order(@lists).each do |list|
+  %p
+    %a(href="/lists/#{list.id}" class="box-link#{ ' done' if list.done? }")
+      #{list.name} (#{list.number_of_done_items}/#{list.size})
+
+.major
+  %p
+    %a(href="/lists/new")
+      + NEW LIST
+
+%hr

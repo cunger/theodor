@@ -1,0 +1,11 @@
+- if success?
+  .flash.success
+    = success_message
+- elsif error?
+  .flash.error
+    = error_message
+- else
+  .flash
+    %p
+      %span(class="unbold")
+        = yield

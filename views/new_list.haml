@@ -1,0 +1,21 @@
+%h1
+  Create new list
+
+%hr
+
+- haml :flash_new_list, :layout => :flash_layout
+
+%form(action="/lists/new" method="post")
+  %dl
+    %dd
+      %input(name="list_name" placeholder="List name" type="text" value="")
+  %dl
+    %fieldset(class="actions")
+      %input(type="submit" value="Create")
+
+%hr
+
+.major
+  %p
+    %a(href="/lists")
+      < ALL LISTS

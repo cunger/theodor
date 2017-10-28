@@ -1,0 +1,23 @@
+%h1
+  Rename list
+
+%hr
+
+- haml :flash_rename_list, :layout => :flash_layout
+
+%form(action="/lists/#{@list_id}/rename" method="post")
+  %dl
+    %dd
+      %input(name="list_name" placeholder="List name" type="text" value="#{params['list_name'] || @list_name}")
+  %dl
+    %fieldset(class="actions")
+      %input(type="submit" value="Rename")
+        %a(href="/lists/#{@list_id}" class="button-like")
+          Cancel
+
+%hr
+
+.major
+  %p
+    %a(href="/lists")
+      < ALL LISTS
