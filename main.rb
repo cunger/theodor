@@ -14,6 +14,8 @@ end
 configure(:development) do
   require 'sinatra/reloader'
   also_reload 'lib/database_connection.rb'
+  also_reload 'lib/todo_list.rb'
+  also_reload 'lib/todo_item.rb'
 end
 
 before do
@@ -33,7 +35,7 @@ get '/' do
 end
 
 get '/lists/?' do
-  @lists = @data.lists
+  @lists = @data.hollow_lists
 
   haml :lists
 end

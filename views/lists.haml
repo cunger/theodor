@@ -9,7 +9,7 @@
 - re_order(@lists).each do |list|
   %p
     %a(href="/lists/#{list.id}" class="box-link#{ ' done' if list.done? }")
-      #{list.name} (#{list.number_of_done_items}/#{list.size})
+      #{list.name} (#{list.count_done_items}/#{list.count_all_items})
 
 .major
   %p

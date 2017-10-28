@@ -23,10 +23,28 @@ module ToDo
       @db.exec_params(statement, params)
     end
 
-    def lists
-      results = exec_sql("SELECT * FROM todo_lists;")
+    def hollow_lists
+      query = <<~SQL
+              SELECT todo_lists.id,
+                     todo_lists.name,
+                     count(todo_items.id) AS all,
+                    (SELECT count(id)
+                       FROM todo_items
+                      WHERE todo_list_id = todo_lists.id
+                        AND done = true) AS completed
+                 FROM todo_lists
+                      JOIN todo_items
+                        ON todo_items.todo_list_id = todo_lists.id
+                GROUP BY todo_lists.id;
+               SQL
+      results = exec_sql(query)
       results.map do |result|
-        populate ToDo::List.new(Integer(result['id']), result['name'])
+        ToDo::HollowList.new(
+          Integer(result['id']),
+          result['name'],
+          Integer(result['all']),
+          Integer(result['completed'])
+        )
       end
     end
 
