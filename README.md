@@ -1,6 +1,6 @@
 **Note:** This is not a production app. This is a project solely for learning purposes. As such, it misses functionality. It misses tests. And it has only a very basic front-end design.
 
-If you're lucky, it's still runnning on Heroku: [theodor.herokuapp.com](https://theodor.herokuapp.com/)
+If you're lucky, it's still runnning on Heroku: [launch-180-theodor.herokuapp.com](https://launch-180-theodor.herokuapp.com)
 
 ## Install
 
@@ -8,4 +8,4 @@ If you're lucky, it's still runnning on Heroku: [theodor.herokuapp.com](https://
 
 ## Rake tasks
 
-* Start the application: `rake rackup` or simply `rake` 
+* Start the application: `rake rackup` or simply `rake`
